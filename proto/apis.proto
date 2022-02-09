@@ -1,0 +1,118 @@
+syntax = "proto3";
+option go_package = ".;pb";
+package pb;
+
+import "google/api/annotations.proto";
+import "protoc-gen-swagger/options/annotations.proto";
+import "management.proto";
+import "product.proto";
+
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+    info: {
+        title: "Booking Golang Service";
+        version: "1.0";
+    }
+    security_definitions: {
+      security: {
+          key: "APIKeyAuthentication";
+          value: {
+              type: TYPE_API_KEY;
+              in: IN_HEADER;
+              name: "Authorization";
+          }
+      }
+    };
+};
+
+service API {
+  rpc GetServices(GetServicesRequest) returns (GetServicesResponse) {
+      option (google.api.http) = {
+          get:"/bcs/v1/services"
+      };
+      option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+          summary: "Get Services";
+          tags: "Inquiry";
+      };
+  }
+
+  rpc GetCountries (GetCountriesRequest) returns (GetCountriesResponse) {
+      option (google.api.http) = {
+          get:"/bcs/v1/countries"
+      };
+      option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+          summary: "Get Coutries";
+          tags: "Inquiry";
+      };
+  }
+
+  rpc GetListProduct(GetListProductRequest) returns (GetListProductResponse) {
+    option (google.api.http) = {
+      get:"/bcs/v1/products"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+        summary: "Get list product";
+        tags: "Product";
+    };
+  }
+
+  rpc GetProductDetail(GetProductDetailRequest) returns (GetProductDetailResponse) {
+    option (google.api.http) = {
+      get:"/bcs/v1/product/detail"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+        summary: "Get product detail";
+        tags: "Product";
+    };
+  }
+
+  rpc CreateProduct(CreateProductRequest) returns (CreateProductResponse) {
+    option (google.api.http) = {
+      post:"/bcs/v1/product/create"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+        summary: "Create product";
+        tags: "Product";
+        security: {
+          security_requirement: {
+              key: "APIKeyAuthentication";
+              value: {}
+          }
+        }
+    };
+  }
+
+  rpc UpdateProduct(UpdateProductRequest) returns (UpdateProductResponse) {
+    option (google.api.http) = {
+      post:"/bcs/v1/product/update"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+        summary: "Update product";
+        tags: "Product";
+        security: {
+          security_requirement: {
+              key: "APIKeyAuthentication";
+              value: {}
+          }
+        }
+    };
+  }
+
+  rpc DeleteProduct(DeleteProductRequest) returns (DeleteProductResponse) {
+    option (google.api.http) = {
+      post:"/bcs/v1/product/delete"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+        summary: "Delete product";
+        tags: "Product";
+        security: {
+          security_requirement: {
+              key: "APIKeyAuthentication";
+              value: {}
+          }
+        }
+    };
+  }
+}

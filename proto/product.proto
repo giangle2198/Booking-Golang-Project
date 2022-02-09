@@ -1,0 +1,79 @@
+syntax = "proto3";
+option go_package = ".;pb";
+package pb;
+
+message ProductItem {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  string img = 4;
+  repeated string categories = 5;
+  repeated string sizes = 6;
+  string color = 7;
+  string price = 8;
+}
+
+message GetListProductRequest {
+  repeated string category = 1;
+}
+
+message GetListProductResponse {
+  string status_code = 1;
+  string reason_code = 2;
+  string reason_message = 3;
+  repeated ProductItem products = 4;
+}
+
+message GetProductDetailRequest {
+  string product_id = 1;
+}
+
+message GetProductDetailResponse {
+  string status_code = 1;
+  string reason_code = 2;
+  string reason_message = 3;
+  ProductItem product = 4;
+}
+
+message CreateProductRequest {
+  string title = 1;
+  string description = 2;
+  repeated string categories = 3;
+  repeated string sizes = 4;
+  string color = 5;
+  string price = 6;
+  string img = 7;
+}
+
+message CreateProductResponse {
+  string status_code = 1;
+  string reason_code = 2;
+  string reason_message = 3;
+}
+
+message UpdateProductRequest {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  repeated string categories = 4;
+  repeated string sizes = 5;
+  string color = 6;
+  string price = 7;
+  string img = 9;
+}
+
+message UpdateProductResponse {
+  string status_code = 1;
+  string reason_code = 2;
+  string reason_message = 3;
+}
+
+message DeleteProductRequest {
+  string product_id = 1;
+}
+
+message DeleteProductResponse {
+  string status_code = 1;
+  string reason_code = 2;
+  string reason_message = 3;
+}
